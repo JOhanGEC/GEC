@@ -96,12 +96,12 @@ nav.scrolled { background: rgba(245,247,242,.94); backdrop-filter: blur(20px) sa
   max-width: 1100px; position: relative; z-index: 2;
   opacity: 0; animation: fadeUp .7s ease forwards .25s;
 }
-.h1-solid { display: block; color: var(--text); font-size: clamp(2rem, 4vw, 3.8rem); }
-.h1-stroke { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--g); font-size: clamp(2rem, 4vw, 3.8rem); }
+.h1-solid { display: block; color: var(--text); font-size: clamp(1.5rem, 2.6vw, 2.4rem); }
+.h1-stroke { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--g); font-size: clamp(1.5rem, 2.6vw, 2.4rem); }
 .h1-dim { display: none; }
 
 .hero-desc {
-  margin-top: 2.4rem; max-width: 520px; font-size: 1rem; line-height: 1.85;
+  margin-top: 2rem; max-width: 480px; font-size: .88rem; line-height: 1.8;
   color: rgba(17,26,13,.55); font-weight: 300; position: relative; z-index: 2;
   opacity: 0; animation: fadeUp .7s ease forwards .4s;
 }
@@ -136,7 +136,7 @@ nav.scrolled { background: rgba(245,247,242,.94); backdrop-filter: blur(20px) sa
   opacity: 0; animation: fadeUp .7s ease forwards .68s;
 }
 .metric { display: flex; flex-direction: column; gap: 4px; }
-.metric-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.5rem; color: var(--g); line-height: 1; letter-spacing: -.02em; }
+.metric-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.9rem; color: var(--g); line-height: 1; letter-spacing: -.02em; }
 .metric-l { font-family: 'Syne Mono', monospace; font-size: .55rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
 
 .hero-scroll { position: absolute; bottom: 2.5rem; right: 5vw; display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 2; opacity: 0; animation: fadeUp .7s ease forwards .82s; }
@@ -147,7 +147,7 @@ nav.scrolled { background: rgba(245,247,242,.94); backdrop-filter: blur(20px) sa
 
 @media(max-width:768px){
   #hero { padding: 95px 5vw 55px; min-height: auto; }
-  .h1-solid, .h1-stroke { font-size: clamp(2.4rem, 12vw, 4.5rem); }
+  .h1-solid, .h1-stroke { font-size: clamp(1.7rem, 8vw, 3rem); }
   .h1-dim { font-size: clamp(1.1rem, 5.5vw, 2.2rem); }
   .hero-desc { font-size: .88rem; margin-top: 1.4rem; }
   .hero-cta-row { margin-top: 1.5rem; }
@@ -169,7 +169,7 @@ nav.scrolled { background: rgba(245,247,242,.94); backdrop-filter: blur(20px) sa
 section { position:relative; z-index:2; padding:120px 5vw; }
 .eyebrow { font-family:'Syne Mono',monospace; font-size:.62rem; letter-spacing:.32em; text-transform:uppercase; color:var(--g); display:flex; align-items:center; gap:12px; margin-bottom:1.3rem; }
 .eyebrow::before { content:''; display:block; width:26px; height:1px; background:var(--g); }
-.sec-title { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(2rem,4vw,3.8rem); line-height:.9; text-transform:uppercase; letter-spacing:-.02em; color:var(--text); }
+.sec-title { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(1.5rem,2.6vw,2.4rem); line-height:.9; text-transform:uppercase; letter-spacing:-.02em; color:var(--text); }
 .sec-title em { font-style:normal; color:transparent; -webkit-text-stroke:1.5px var(--g); }
 @media(max-width:768px){ section { padding:65px 5vw; } .sec-title { font-size:clamp(1.7rem,8vw,3rem); } }
 
@@ -274,9 +274,9 @@ section { position:relative; z-index:2; padding:120px 5vw; }
 #nosotros { background:var(--bg); overflow:hidden; }
 .about-layout { display:grid; grid-template-columns:1fr; gap:3rem; }
 .about-headline { font-family:'Syne',sans-serif; font-weight:800; text-transform:uppercase; line-height:.88; letter-spacing:-.02em; }
-.ah-solid  { display:block; color:var(--text); font-size:clamp(2rem,4vw,3.8rem); }
-.ah-solid2 { display:block; color:var(--text); font-size:clamp(2rem,4vw,3.8rem); }
-.ah-stroke { display:block; color:transparent; -webkit-text-stroke:1.5px var(--g); font-size:clamp(2rem,4vw,3.8rem); }
+.ah-solid  { display:block; color:var(--text); font-size:clamp(1.5rem,2.6vw,2.4rem); }
+.ah-solid2 { display:block; color:var(--text); font-size:clamp(1.5rem,2.6vw,2.4rem); }
+.ah-stroke { display:block; color:transparent; -webkit-text-stroke:1.5px var(--g); font-size:clamp(1.5rem,2.6vw,2.4rem); }
 .about-quote { margin-top:2.4rem; padding-left:1.5rem; border-left:2px solid var(--g); }
 .about-quote-txt { font-size:.97rem; line-height:1.78; color:rgba(17,26,13,.65); }
 .about-quote-txt .hi { color:var(--g); font-weight:600; }
@@ -307,9 +307,9 @@ section { position:relative; z-index:2; padding:120px 5vw; }
 .contact-layout { display:grid; grid-template-columns:1fr 1fr; gap:6vw; align-items:start; }
 @media(max-width:900px){ .contact-layout { grid-template-columns:1fr; gap:3.5rem; } }
 .contact-title { font-family:'Syne',sans-serif; font-weight:800; text-transform:uppercase; line-height:.88; letter-spacing:-.02em; margin-top:1.2rem; }
-.ct-solid  { display:block; color:var(--text); font-size:clamp(2rem,4vw,3.8rem); }
-.ct-solid2 { display:block; color:var(--text); font-size:clamp(2rem,4vw,3.8rem); }
-.ct-proj   { display:block; color:transparent; -webkit-text-stroke:1.5px var(--g); font-size:clamp(2rem,4vw,3.8rem); }
+.ct-solid  { display:block; color:var(--text); font-size:clamp(1.5rem,2.6vw,2.4rem); }
+.ct-solid2 { display:block; color:var(--text); font-size:clamp(1.5rem,2.6vw,2.4rem); }
+.ct-proj   { display:block; color:transparent; -webkit-text-stroke:1.5px var(--g); font-size:clamp(1.5rem,2.6vw,2.4rem); }
 .ct-ghost1 { display:none; }
 .ct-ghost2 { display:none; }
 .ct-live { display:inline-flex; align-items:center; gap:8px; margin-top:1.8rem; font-size:.84rem; color:rgba(17,26,13,.48); }
@@ -340,9 +340,9 @@ footer { position:relative; z-index:2; background:var(--bg2); padding:2.5rem 5vw
 /* CONSTELLATION CANVAS */
 #constellation-canvas {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  z-index: 0; pointer-events: none;
+  z-index: 1; pointer-events: none; opacity: 0.55;
 }
-@media(max-width:768px){ #constellation-canvas { opacity:.45; } }
+@media(max-width:768px){ #constellation-canvas { opacity:.3; } }
 
 /* PROJECT ICON GRID */
 .pcat-grid {
@@ -443,17 +443,17 @@ footer { position:relative; z-index:2; background:var(--bg2); padding:2.5rem 5vw
     <span class="h1-dim">GEC — BOGOTÁ 2026</span>
   </h1>
   <p class="hero-desc">
-    En <strong>GREEN Engineering Consulting (GEC)</strong> transformamos la infraestructura técnica de las empresas mediante soluciones de ingeniería inteligente, asegurando el cumplimiento ambiental y la reducción drástica de costes energéticos.
+    En <strong>GREEN Engineering Consulting (GEC)</strong> transformamos la infraestructura técnica de las organizaciones mediante ingeniería inteligente y <strong>transformación digital con BIM 3D</strong> — integrando modelado paramétrico, coordinación multidisciplinar y gemelos digitales para optimizar el ciclo de vida de cada proyecto. Garantizamos cumplimiento normativo ambiental y reducción drástica de costos energéticos.
   </p>
   <div class="hero-cta-row">
     <a href="#contacto" class="btn-primary">Agendar Consultoría Técnica <span>→</span></a>
     <a href="#proyectos" class="btn-outline">Ver Portafolio</a>
   </div>
   <div class="hero-metrics">
-    <div class="metric"><span class="metric-n">100%</span><span class="metric-l">Cumplimiento Normativo</span></div>
-    <div class="metric"><span class="metric-n">30%+</span><span class="metric-l">Ahorro en Consumo Energético</span></div>
+    <div class="metric"><span class="metric-n">100%</span><span class="metric-l">Tasa de Efectividad</span></div>
+    <div class="metric"><span class="metric-n">30%+</span><span class="metric-l">Ahorro Energético</span></div>
     <div class="metric"><span class="metric-n">40+</span><span class="metric-l">Proyectos Ejecutados</span></div>
-    <div class="metric"><span class="metric-n">26/27</span><span class="metric-l">Proyección Vigente</span></div>
+    <div class="metric"><span class="metric-n">BIM 3D</span><span class="metric-l">Transformación Digital</span></div>
   </div>
   <div class="hero-scroll"><div class="scroll-ln"></div><div class="scroll-txt">SCROLL</div></div>
 </section>
@@ -751,7 +751,7 @@ const CATEGORIES = [
   const canvas = document.getElementById('constellation-canvas');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, nodes, mx = 0, my = 0;
+  let W, H, nodes, mx = -9999, my = -9999;
 
   function resize(){
     W = canvas.width = canvas.offsetWidth;
@@ -760,23 +760,23 @@ const CATEGORIES = [
   }
 
   function initNodes(){
-    const count = Math.max(40, Math.floor(W * H / 18000));
+    const count = Math.max(55, Math.floor(W * H / 12000));
     nodes = Array.from({length: count}, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
-      vx: (Math.random() - .5) * .28,
-      vy: (Math.random() - .5) * .28,
-      r: .8 + Math.random() * 1.6,
-      a: .25 + Math.random() * .55
+      vx: (Math.random() - .5) * .38,
+      vy: (Math.random() - .5) * .38,
+      r: 1.2 + Math.random() * 2,
+      a: .45 + Math.random() * .45
     }));
   }
 
   window.addEventListener('resize', resize);
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY - canvas.getBoundingClientRect().top; });
   resize();
 
-  const G = 90; // connection distance
-  const MC = 0.04; // mouse influence coefficient
+  const G = 130; // connection distance
+  const MC = 0.035; // mouse influence coefficient
 
   (function frame(){
     ctx.clearRect(0, 0, W, H);
@@ -785,12 +785,12 @@ const CATEGORIES = [
       // gentle mouse attraction
       const dx = mx - n.x, dy = my - n.y;
       const dist = Math.sqrt(dx*dx + dy*dy);
-      if(dist < 200){
+      if(dist < 220 && dist > 0){
         n.vx += dx / dist * MC;
         n.vy += dy / dist * MC;
       }
       // damping
-      n.vx *= .985; n.vy *= .985;
+      n.vx *= .982; n.vy *= .982;
       n.x += n.vx; n.y += n.vy;
       // bounce
       if(n.x < 0 || n.x > W) n.vx *= -1;
@@ -806,12 +806,12 @@ const CATEGORIES = [
         const dy = nodes[i].y - nodes[j].y;
         const d = Math.sqrt(dx*dx + dy*dy);
         if(d < G){
-          const alpha = (1 - d/G) * 0.22;
+          const alpha = (1 - d/G) * 0.38;
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
           ctx.strokeStyle = `rgba(90,158,30,${alpha})`;
-          ctx.lineWidth = .7;
+          ctx.lineWidth = .85;
           ctx.stroke();
         }
       }
