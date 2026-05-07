@@ -71,9 +71,73 @@ nav.scrolled { background: rgba(245,247,242,.94); backdrop-filter: blur(20px) sa
 /* HERO */
 #hero {
   position: relative; min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 130px 5vw 80px; z-index: 1; overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 100px 5vw 70px; z-index: 1; overflow: hidden;
+  gap: 4vw;
 }
+@media(max-width:900px){
+  #hero { grid-template-columns: 1fr; min-height: auto; padding: 95px 5vw 55px; }
+}
+
+/* Left column — all existing hero content */
+.hero-left { display: flex; flex-direction: column; position: relative; z-index: 2; }
+
+/* Right column — animated visual */
+.hero-right {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; animation: fadeUp .9s ease forwards .5s;
+}
+@media(max-width:900px){ .hero-right { display: none; } }
+
+/* Animated radar/engineering diagram */
+.hero-diagram {
+  position: relative;
+  width: 420px; height: 420px;
+}
+@media(max-width:1200px){ .hero-diagram { width: 340px; height: 340px; } }
+
+.hero-diagram-svg {
+  width: 100%; height: 100%;
+  animation: diagRotate 60s linear infinite;
+}
+@keyframes diagRotate { to { transform: rotate(360deg); } }
+
+.hero-diagram-inner {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: .5rem;
+}
+.hero-diagram-badge {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 2.8rem; letter-spacing: .1em; color: var(--g);
+  text-transform: uppercase; line-height: 1;
+}
+.hero-diagram-sub {
+  font-family: 'Syne Mono', monospace; font-size: .62rem;
+  letter-spacing: .18em; color: rgba(17,26,13,.65); text-transform: uppercase;
+  line-height: 1.6; text-align: center;
+}
+
+/* Orbiting dots */
+.hero-orbit {
+  position: absolute; top: 50%; left: 50%;
+  transform-origin: 0 0;
+  animation: orbit linear infinite;
+}
+.hero-orbit-dot {
+  width: 8px; height: 8px; background: var(--g);
+  border-radius: 50%; opacity: .7;
+  transform: translate(-50%, -50%);
+}
+.hero-orbit-dot-sm {
+  width: 5px; height: 5px; background: var(--g-light);
+  border-radius: 50%; opacity: .5;
+  transform: translate(-50%, -50%);
+}
+@keyframes orbit { to { transform: rotate(360deg); } }
 .hero-grid {
   position: absolute; inset: 0; z-index: 0;
   background-image: linear-gradient(rgba(90,158,30,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(90,158,30,.06) 1px, transparent 1px);
@@ -83,7 +147,6 @@ nav.scrolled { background: rgba(245,247,242,.94); backdrop-filter: blur(20px) sa
   font-family: 'Syne Mono', monospace; font-size: .64rem;
   letter-spacing: .32em; text-transform: uppercase; color: var(--g);
   display: flex; align-items: center; gap: 12px; margin-bottom: 2rem;
-  position: relative; z-index: 2;
   opacity: 0; animation: fadeUp .7s ease forwards .1s;
 }
 .hero-eyebrow::before { content:''; display:block; width:34px; height:1px; background:var(--g); }
@@ -93,23 +156,22 @@ nav.scrolled { background: rgba(245,247,242,.94); backdrop-filter: blur(20px) sa
 .hero-h1 {
   font-family: 'Syne', sans-serif; font-weight: 800;
   text-transform: uppercase; line-height: .88; letter-spacing: -.02em;
-  max-width: 1100px; position: relative; z-index: 2;
+  max-width: 100%;
   opacity: 0; animation: fadeUp .7s ease forwards .25s;
 }
-.h1-solid { display: block; color: var(--text); font-size: clamp(1.5rem, 2.6vw, 2.4rem); }
-.h1-stroke { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--g); font-size: clamp(1.5rem, 2.6vw, 2.4rem); }
+.h1-solid { display: block; color: var(--text); font-size: clamp(2.2rem, 4.5vw, 4rem); }
+.h1-stroke { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--g); font-size: clamp(2.2rem, 4.5vw, 4rem); }
 .h1-dim { display: none; }
 
 .hero-desc {
-  margin-top: 2rem; max-width: 480px; font-size: .88rem; line-height: 1.8;
-  color: rgba(17,26,13,.55); font-weight: 300; position: relative; z-index: 2;
+  margin-top: 2rem; max-width: 480px; font-size: .9rem; line-height: 1.8;
+  color: rgba(17,26,13,.55); font-weight: 300;
   opacity: 0; animation: fadeUp .7s ease forwards .4s;
 }
 .hero-desc strong { color: var(--g); font-weight: 600; }
 
 .hero-cta-row {
   margin-top: 2.4rem; display: flex; gap: 1.2rem; flex-wrap: wrap;
-  position: relative; z-index: 2;
   opacity: 0; animation: fadeUp .7s ease forwards .54s;
 }
 .btn-primary {
@@ -131,12 +193,12 @@ nav.scrolled { background: rgba(245,247,242,.94); backdrop-filter: blur(20px) sa
 .btn-outline:hover { border-color: var(--g); color: var(--g); }
 
 .hero-metrics {
-  margin-top: 4.5rem; padding-top: 2rem; border-top: 1px solid var(--border);
-  display: flex; gap: 4rem; flex-wrap: wrap; position: relative; z-index: 2;
+  margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border);
+  display: flex; gap: 3rem; flex-wrap: wrap;
   opacity: 0; animation: fadeUp .7s ease forwards .68s;
 }
 .metric { display: flex; flex-direction: column; gap: 4px; }
-.metric-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.9rem; color: var(--g); line-height: 1; letter-spacing: -.02em; }
+.metric-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.2rem; color: var(--g); line-height: 1; letter-spacing: -.02em; }
 .metric-l { font-family: 'Syne Mono', monospace; font-size: .55rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
 
 .hero-scroll { position: absolute; bottom: 2.5rem; right: 5vw; display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 2; opacity: 0; animation: fadeUp .7s ease forwards .82s; }
@@ -147,8 +209,7 @@ nav.scrolled { background: rgba(245,247,242,.94); backdrop-filter: blur(20px) sa
 
 @media(max-width:768px){
   #hero { padding: 95px 5vw 55px; min-height: auto; }
-  .h1-solid, .h1-stroke { font-size: clamp(1.7rem, 8vw, 3rem); }
-  .h1-dim { font-size: clamp(1.1rem, 5.5vw, 2.2rem); }
+  .h1-solid, .h1-stroke { font-size: clamp(2rem, 10vw, 3.5rem); }
   .hero-desc { font-size: .88rem; margin-top: 1.4rem; }
   .hero-cta-row { margin-top: 1.5rem; }
   .btn-primary, .btn-outline { padding: 12px 22px; font-size: .68rem; }
@@ -181,41 +242,120 @@ section { position:relative; z-index:2; padding:120px 5vw; }
 .sr-r { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; transition-delay:.13s; }
 .sr-r.visible { opacity:1; transform:translateY(0); }
 
-/* SERVICES */
+/* SERVICES — NEW CARD GRID */
 #servicios { background:var(--bg); padding:120px 0 0; overflow:hidden; }
 .svc-intro { display:flex; justify-content:space-between; align-items:flex-end; padding:0 5vw 3.5rem; flex-wrap:wrap; gap:2rem; }
 .svc-intro-right { font-size:.87rem; line-height:1.8; color:rgba(17,26,13,.4); max-width:320px; font-weight:300; }
 @media(max-width:768px){ .svc-intro-right { display:none; } }
-.svc-accordion { display:flex; flex-direction:column; }
-.svc-row { border-top:1px solid var(--border); overflow:hidden; transition:background .3s; }
-.svc-row:last-child { border-bottom:1px solid var(--border); }
-.svc-row:hover { background:rgba(90,158,30,.04); }
-.svc-row.open { background:rgba(90,158,30,.05); }
-.svc-row-head { display:flex; align-items:center; padding:1.4rem 5vw; cursor:pointer; gap:1.8rem; user-select:none; -webkit-tap-highlight-color:transparent; }
-.svc-row-num { font-family:'Syne Mono',monospace; font-size:.57rem; letter-spacing:.2em; color:rgba(90,158,30,.4); min-width:24px; flex-shrink:0; }
-.svc-row-name { font-family:'Syne',sans-serif; font-weight:700; font-size:clamp(.88rem,1.7vw,1.18rem); text-transform:uppercase; letter-spacing:.06em; color:rgba(17,26,13,.5); flex:1; transition:color .3s; }
-.svc-row.open .svc-row-name, .svc-row:hover .svc-row-name { color:var(--g); }
-.svc-row-tag { font-family:'Syne Mono',monospace; font-size:.54rem; letter-spacing:.15em; color:rgba(90,158,30,.4); text-transform:uppercase; flex-shrink:0; }
-@media(max-width:700px){ .svc-row-tag { display:none; } }
-.svc-row-toggle { width:28px; height:28px; flex-shrink:0; border:1px solid rgba(90,158,30,.25); border-radius:50%; display:flex; align-items:center; justify-content:center; color:rgba(90,158,30,.5); font-size:1rem; transition:all .4s; }
-.svc-row.open .svc-row-toggle { background:var(--g); border-color:var(--g); color:#fff; transform:rotate(45deg); }
-.svc-row-body { max-height:0; overflow:hidden; transition:max-height .55s cubic-bezier(0.4,0,0.2,1); }
-.svc-row.open .svc-row-body { max-height:600px; }
-.svc-row-body-inner { padding:0 5vw 2.5rem; }
+
+/* New card grid */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--border);
+}
+@media(max-width:1100px){ .svc-grid { grid-template-columns: repeat(4,1fr); } }
+@media(max-width:860px) { .svc-grid { grid-template-columns: repeat(3,1fr); } }
+@media(max-width:600px) { .svc-grid { grid-template-columns: repeat(2,1fr); } }
+
+.svc-card {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 1.4rem 1.6rem;
+  cursor: pointer; position: relative;
+  transition: background .3s;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent; user-select: none;
+  display: flex; flex-direction: column; gap: .75rem;
+}
+.svc-card:hover { background: rgba(90,158,30,.05); }
+.svc-card.open  { background: rgba(90,158,30,.08); }
+
+/* Animated accent bar on top */
+.svc-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 0; height: 2.5px; background: var(--g);
+  transition: width .4s ease;
+}
+.svc-card:hover::before, .svc-card.open::before { width: 100%; }
+
+/* number badge */
+.svc-card-num {
+  font-family: 'Syne Mono', monospace; font-size: .48rem;
+  letter-spacing: .22em; color: rgba(90,158,30,.38);
+}
+
+/* big icon area */
+.svc-card-icon {
+  width: 40px; height: 40px; margin: .4rem 0 .2rem;
+  color: var(--g); flex-shrink: 0;
+  transition: transform .4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.svc-card:hover .svc-card-icon { transform: scale(1.18) rotate(-8deg); }
+.svc-card.open .svc-card-icon { transform: scale(1.18) rotate(-8deg); }
+.svc-card-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* name */
+.svc-card-name {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(.72rem,1.1vw,.85rem);
+  text-transform: uppercase; letter-spacing: .04em;
+  color: rgba(17,26,13,.5); transition: color .25s; line-height: 1.25;
+}
+.svc-card:hover .svc-card-name,
+.svc-card.open  .svc-card-name { color: var(--text); }
+
+/* tag */
+.svc-card-tag {
+  font-family: 'Syne Mono', monospace; font-size: .47rem;
+  letter-spacing: .12em; color: rgba(90,158,30,.5);
+  text-transform: uppercase; margin-top: auto;
+}
+
+/* toggle indicator */
+.svc-card-toggle {
+  position: absolute; bottom: 1rem; right: 1rem;
+  width: 20px; height: 20px;
+  border: 1px solid rgba(90,158,30,.28); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; color: rgba(90,158,30,.5);
+  transition: all .35s; line-height: 1;
+}
+.svc-card.open .svc-card-toggle { background: var(--g); border-color: var(--g); color: #fff; transform: rotate(45deg); }
+
+/* expanded detail panel */
+.svc-detail-panel {
+  grid-column: 1 / -1;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  border-left: 3px solid var(--g);
+  max-height: 0; overflow: hidden;
+  transition: max-height .5s cubic-bezier(0.4,0,0.2,1);
+  padding: 0 2.5rem;
+}
+.svc-detail-panel.open { max-height: 500px; padding: 2rem 2.5rem; }
+
+.svc-detail-inner { opacity: 0; transform: translateY(8px); transition: opacity .35s .12s, transform .35s .12s; }
+.svc-detail-panel.open .svc-detail-inner { opacity:1; transform:translateY(0); }
+
+.svc-detail-head { display:flex; align-items:baseline; gap:1.2rem; margin-bottom:1.2rem; flex-wrap:wrap; }
+.svc-detail-name-big { font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; text-transform:uppercase; letter-spacing:-.01em; color:var(--text); }
+.svc-detail-tag-pill { font-family:'Syne Mono',monospace; font-size:.52rem; letter-spacing:.13em; text-transform:uppercase; color:var(--g); padding:4px 12px; border:1px solid rgba(90,158,30,.3); background:rgba(90,158,30,.07); }
+
 .svc-items-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(255px,1fr)); gap:.48rem .52rem; list-style:none; }
 .svc-item-li { font-size:.84rem; color:rgba(17,26,13,.55); padding-left:1.1rem; position:relative; line-height:1.55; opacity:0; transform:translateY(5px); transition:opacity .3s, transform .3s; }
-.svc-row.open .svc-item-li { opacity:1; transform:translateY(0); }
-.svc-row.open .svc-item-li:nth-child(1){transition-delay:.08s}
-.svc-row.open .svc-item-li:nth-child(2){transition-delay:.12s}
-.svc-row.open .svc-item-li:nth-child(3){transition-delay:.16s}
-.svc-row.open .svc-item-li:nth-child(4){transition-delay:.20s}
-.svc-row.open .svc-item-li:nth-child(5){transition-delay:.24s}
-.svc-row.open .svc-item-li:nth-child(6){transition-delay:.28s}
-.svc-row.open .svc-item-li:nth-child(7){transition-delay:.32s}
-.svc-row.open .svc-item-li:nth-child(8){transition-delay:.36s}
-.svc-row.open .svc-item-li:nth-child(9){transition-delay:.40s}
+.svc-detail-panel.open .svc-item-li { opacity:1; transform:translateY(0); }
+.svc-detail-panel.open .svc-item-li:nth-child(1){transition-delay:.1s}
+.svc-detail-panel.open .svc-item-li:nth-child(2){transition-delay:.14s}
+.svc-detail-panel.open .svc-item-li:nth-child(3){transition-delay:.18s}
+.svc-detail-panel.open .svc-item-li:nth-child(4){transition-delay:.22s}
+.svc-detail-panel.open .svc-item-li:nth-child(5){transition-delay:.26s}
+.svc-detail-panel.open .svc-item-li:nth-child(6){transition-delay:.30s}
+.svc-detail-panel.open .svc-item-li:nth-child(7){transition-delay:.34s}
+.svc-detail-panel.open .svc-item-li:nth-child(8){transition-delay:.38s}
+.svc-detail-panel.open .svc-item-li:nth-child(9){transition-delay:.42s}
 .svc-item-li::before { content:'—'; position:absolute; left:0; color:var(--g); font-size:.66rem; top:.1em; }
-@media(max-width:600px){ .svc-items-list { grid-template-columns:1fr; } .svc-row-head { padding:1.1rem 4vw; gap:.9rem; } }
+@media(max-width:600px){ .svc-items-list { grid-template-columns:1fr; } }
 
 /* PROJECTS */
 #proyectos { background:var(--bg2); padding:120px 0; overflow:hidden; }
@@ -246,7 +386,6 @@ section { position:relative; z-index:2; padding:120px 5vw; }
 @media(max-width:600px){ .proj-cat-head { padding:1.1rem 4vw; gap:.9rem; } .proj-cat-inner { padding:0 4vw 1.8rem; } }
 
 /* STATS */
-.stats-strip { position:relative; z-index:2; background:var(--bg3); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:3rem 5vw; }
 .stats-inner { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); }
 .stat-bl {
   background:var(--bg3); padding:2rem 1.8rem;
@@ -344,63 +483,297 @@ footer { position:relative; z-index:2; background:var(--bg2); padding:2.5rem 5vw
 }
 @media(max-width:768px){ #constellation-canvas { opacity:.3; } }
 
-/* PROJECT ICON GRID */
+/* PROJECT PENTAGON PORTAL — full redesign */
+#proyectos { background:var(--bg2); padding:100px 0 80px; overflow:hidden; }
+
 .pcat-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 5vw;
+}
+
+/* Two-column layout: pentagon left, info panel right */
+.pcat-stage {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px; background: var(--border);
-  margin-top: 2.5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  width: 100%;
+  max-width: 1100px;
+  align-items: center;
+  min-height: 560px;
 }
-@media(max-width:900px){ .pcat-grid { grid-template-columns: repeat(3,1fr); } }
-@media(max-width:540px){ .pcat-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:860px){
+  .pcat-stage { grid-template-columns: 1fr; min-height: auto; }
+}
 
-.pcat-card {
+/* ── LEFT: Pentagon ── */
+.pcat-pentagon-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.pcat-pentagon-wrap {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  flex-shrink: 0;
+}
+@media(max-width:1100px){ .pcat-pentagon-wrap { width: 400px; height: 400px; } }
+@media(max-width:860px)  { .pcat-pentagon-wrap { width: 340px; height: 340px; } }
+@media(max-width:480px)  { .pcat-pentagon-wrap { width: 290px; height: 290px; } }
+
+/* Center label */
+.pcat-center-label {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center; pointer-events: none; z-index: 4;
+}
+.pcat-center-gec {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 1rem; letter-spacing: .2em; color: var(--g);
+  text-transform: uppercase; display: block;
+}
+.pcat-center-sub {
+  font-family: 'Syne Mono', monospace;
+  font-size: .44rem; letter-spacing: .22em;
+  color: rgba(90,158,30,.45); text-transform: uppercase;
+  display: block; margin-top: .2rem;
+}
+
+.pcat-pentagon-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1;
+}
+
+/* Face buttons */
+.pcat-face {
+  position: absolute; z-index: 3;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; user-select: none;
+}
+.pcat-face-btn {
+  width: 72px; height: 72px; border-radius: 50%;
   background: var(--bg2);
+  border: 1.5px solid rgba(90,158,30,.3);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .35s, border-color .35s, transform .42s cubic-bezier(0.34,1.56,0.64,1), box-shadow .35s;
+}
+@media(max-width:860px){ .pcat-face-btn { width:56px; height:56px; } }
+@media(max-width:480px){ .pcat-face-btn { width:46px; height:46px; } }
+
+.pcat-face:hover .pcat-face-btn {
+  background: rgba(90,158,30,.1);
+  border-color: rgba(90,158,30,.7);
+  transform: scale(1.12);
+  box-shadow: 0 0 0 5px rgba(90,158,30,.08), 0 6px 24px rgba(90,158,30,.18);
+}
+.pcat-face.open .pcat-face-btn {
+  background: rgba(90,158,30,.14);
+  border-color: var(--g);
+  border-width: 2px;
+  transform: scale(1.16);
+  box-shadow: 0 0 0 8px rgba(90,158,30,.1), 0 10px 32px rgba(90,158,30,.22);
+}
+.pcat-face-btn svg {
+  width: 28px; height: 28px;
+  stroke: var(--g); fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke .3s;
+}
+@media(max-width:860px){ .pcat-face-btn svg { width: 22px; height: 22px; } }
+@media(max-width:480px){ .pcat-face-btn svg { width: 18px; height: 18px; } }
+
+/* Face labels (outside each icon) */
+.pcat-face-label {
+  position: absolute; text-align: center;
+  white-space: nowrap; pointer-events: none;
+  z-index: 3;
+}
+.pcat-face-label-name {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
+  color: rgba(17,26,13,.55); transition: color .25s; display: block;
+}
+.pcat-face:hover  .pcat-face-label-name,
+.pcat-face.open   .pcat-face-label-name { color: var(--g); }
+.pcat-face-label-count {
+  font-family: 'Syne Mono', monospace; font-size: .52rem;
+  letter-spacing: .12em; color: rgba(90,158,30,.5);
+  display: block; margin-top: .15rem;
+}
+@media(max-width:480px){ .pcat-face-label-name { font-size:.62rem; } .pcat-face-label-count { display:none; } }
+
+/* Center label — striking version */
+.pcat-center-label {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center; pointer-events: none; z-index: 4;
+}
+.pcat-center-gec {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 1.4rem; letter-spacing: .22em;
+  background: linear-gradient(135deg, #7DC534 0%, #a8e063 45%, #4a8a16 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase; display: block; line-height: 1;
+  filter: drop-shadow(0 0 12px rgba(125,197,52,.45));
+  animation: gecPulse 3s ease-in-out infinite;
+}
+@keyframes gecPulse {
+  0%,100% { filter: drop-shadow(0 0 8px rgba(125,197,52,.35)); letter-spacing:.22em; }
+  50%      { filter: drop-shadow(0 0 20px rgba(125,197,52,.7)); letter-spacing:.26em; }
+}
+.pcat-center-sub {
+  font-family: 'Syne Mono', monospace;
+  font-size: .46rem; letter-spacing: .28em;
+  color: rgba(90,158,30,.6); text-transform: uppercase;
+  display: block; margin-top: .35rem;
+}
+/* Rotating ring behind GEC badge */
+.pcat-center-ring {
+  position: absolute; top: 50%; left: 50%;
+  width: 68px; height: 68px;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid rgba(125,197,52,.25);
+  border-top-color: rgba(125,197,52,.7);
+  border-right-color: rgba(125,197,52,.5);
+  animation: ringRot 4s linear infinite;
+  pointer-events: none; z-index: 3;
+}
+.pcat-center-ring2 {
+  position: absolute; top: 50%; left: 50%;
+  width: 52px; height: 52px;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid rgba(125,197,52,.15);
+  border-bottom-color: rgba(125,197,52,.5);
+  animation: ringRot 2.8s linear infinite reverse;
+  pointer-events: none; z-index: 3;
+}
+@keyframes ringRot { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+/* Pentagon entry animation */
+.pcat-pentagon-wrap {
+  position: relative;
+  width: 480px; height: 480px;
+  flex-shrink: 0;
+  opacity: 0; animation: pentEntry 1s cubic-bezier(0.34,1.3,0.64,1) forwards .3s;
+}
+@keyframes pentEntry {
+  from { opacity:0; transform: scale(.7) rotate(-15deg); }
+  to   { opacity:1; transform: scale(1) rotate(0deg); }
+}
+@media(max-width:1100px){ .pcat-pentagon-wrap { width: 400px; height: 400px; } }
+@media(max-width:860px)  { .pcat-pentagon-wrap { width: 340px; height: 340px; } }
+@media(max-width:480px)  { .pcat-pentagon-wrap { width: 290px; height: 290px; } }
+
+/* Face buttons entry stagger */
+.pcat-face { animation: faceEntry .5s cubic-bezier(0.34,1.56,0.64,1) both; }
+.pcat-face:nth-child(4)  { animation-delay: .55s; }
+.pcat-face:nth-child(5)  { animation-delay: .65s; }
+.pcat-face:nth-child(6)  { animation-delay: .75s; }
+.pcat-face:nth-child(7)  { animation-delay: .85s; }
+.pcat-face:nth-child(8)  { animation-delay: .95s; }
+@keyframes faceEntry {
+  from { opacity:0; transform: translate(-50%,-50%) scale(.4); }
+  to   { opacity:1; transform: translate(-50%,-50%) scale(1); }
+}
+.pcat-info-col {
+  padding: 2rem 2.5rem;
   display: flex; flex-direction: column;
-  padding: 2rem 1.6rem 1.6rem;
-  cursor: pointer; position: relative;
-  transition: background .3s;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
+  justify-content: center;
+  min-height: 400px;
+  border-left: 1px solid var(--border);
 }
-.pcat-card:hover { background: rgba(90,158,30,.07); }
-.pcat-card.open  { background: rgba(90,158,30,.10); }
-
-.pcat-icon { width:34px; height:34px; margin-bottom:1.2rem; color:var(--g); }
-.pcat-icon svg { width:100%; height:100%; stroke:currentColor; fill:none; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
-
-.pcat-num { font-family:'Syne Mono',monospace; font-size:.52rem; letter-spacing:.2em; color:rgba(90,158,30,.38); margin-bottom:.4rem; }
-
-.pcat-name {
-  font-family:'Syne',sans-serif; font-weight:800;
-  font-size:clamp(.78rem,1.3vw,.95rem);
-  text-transform:uppercase; letter-spacing:.04em;
-  color:rgba(17,26,13,.5); transition:color .25s; line-height:1.25;
+@media(max-width:860px){
+  .pcat-info-col { border-left:none; border-top:1px solid var(--border); padding:2rem 0; min-height: auto; }
 }
-.pcat-card:hover .pcat-name,
-.pcat-card.open  .pcat-name { color:var(--g); }
 
-.pcat-count { font-family:'Syne Mono',monospace; font-size:.52rem; letter-spacing:.13em; color:var(--muted); margin-top:.45rem; }
-
-.pcat-card::after {
-  content:''; position:absolute; bottom:0; left:0;
-  width:0; height:2px; background:var(--g); transition:width .35s ease;
+/* Default (no selection) state */
+.pcat-placeholder {
+  display: flex; flex-direction: column; gap: 1.6rem;
+  opacity: 1; transition: opacity .3s, transform .3s;
+  transform: translateY(0);
 }
-.pcat-card:hover::after, .pcat-card.open::after { width:100%; }
-
-/* detail panel — spans full width */
-.pcat-detail {
-  grid-column: 1 / -1;
-  background: var(--bg3);
-  border-top: 1px solid var(--border);
-  max-height: 0; overflow: hidden;
-  transition: max-height .5s cubic-bezier(0.4,0,0.2,1);
-  padding: 0 2.5rem;
+.pcat-placeholder.hidden { opacity: 0; pointer-events: none; transform: translateY(-8px); }
+.pcat-placeholder-title {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  text-transform: uppercase; letter-spacing: -.02em;
+  color: rgba(17,26,13,.18); line-height: .95;
 }
-.pcat-detail.open { max-height: 360px; padding: 2rem 2.5rem; }
-.pcat-detail-tags { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.1rem; }
-.pcat-detail-tag { font-family:'Syne Mono',monospace; font-size:.54rem; letter-spacing:.13em; text-transform:uppercase; color:var(--g); padding:4px 10px; border:1px solid rgba(90,158,30,.24); background:rgba(90,158,30,.06); }
-.pcat-detail-desc { font-size:.86rem; line-height:1.85; color:rgba(17,26,13,.48); max-width:600px; }
+.pcat-placeholder-hint {
+  font-family: 'Syne Mono', monospace; font-size: .6rem;
+  letter-spacing: .22em; color: rgba(90,158,30,.5);
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px;
+}
+.pcat-placeholder-hint::before { content:''; display:block; width:20px; height:1px; background:rgba(90,158,30,.4); }
+/* arrow indicator */
+.pcat-placeholder-arrow {
+  width: 44px; height: 44px;
+  border: 1.5px solid rgba(90,158,30,.25);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(90,158,30,.45);
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+.pcat-placeholder-arrow svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+@keyframes arrowPulse { 0%,100%{box-shadow:0 0 0 0 rgba(90,158,30,.2);} 50%{box-shadow:0 0 0 10px rgba(90,158,30,0);} }
+
+/* Active detail */
+.pcat-detail-panel {
+  display: flex; flex-direction: column; gap: 1.2rem;
+  opacity: 0; transform: translateX(14px);
+  transition: opacity .4s, transform .4s;
+  position: absolute;
+  pointer-events: none;
+}
+.pcat-detail-panel.active {
+  opacity: 1; transform: translateX(0);
+  position: relative; pointer-events: auto;
+}
+.pcat-detail-num {
+  font-family: 'Syne Mono', monospace; font-size: .5rem;
+  letter-spacing: .28em; color: rgba(90,158,30,.45);
+  text-transform: uppercase;
+}
+.pcat-detail-name {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+  text-transform: uppercase; letter-spacing: -.02em;
+  color: var(--text); line-height: .9;
+}
+.pcat-detail-name em {
+  font-style: normal; color: transparent;
+  -webkit-text-stroke: 1.5px var(--g);
+}
+.pcat-detail-tags {
+  display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .2rem;
+}
+.pcat-detail-tag {
+  font-family: 'Syne Mono', monospace; font-size: .52rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--g); padding: 4px 10px;
+  border: 1px solid rgba(90,158,30,.24); background: rgba(90,158,30,.06);
+}
+.pcat-detail-desc {
+  font-size: .86rem; line-height: 1.85;
+  color: rgba(17,26,13,.5); max-width: 440px;
+  border-left: 2px solid rgba(90,158,30,.28);
+  padding-left: 1rem; margin-top: .4rem;
+}
+.pcat-detail-count-big {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 3rem; color: rgba(90,158,30,.08);
+  letter-spacing: -.04em; line-height: 1;
+  margin-top: auto;
+}
+
+/* STATS */
 </style>
 </head>
 <body>
@@ -435,26 +808,92 @@ footer { position:relative; z-index:2; background:var(--bg2); padding:2.5rem 5vw
 <section id="hero">
   <canvas id="constellation-canvas"></canvas>
   <div class="hero-grid"></div>
-  <div class="hero-eyebrow"><div class="hero-dot"></div>Ingeniería · Consultoría · Diseño · Bogotá CO</div>
-  <h1 class="hero-h1">
-    <span class="h1-solid scramble" data-text="GREEN">GREEN</span>
-    <span class="h1-solid">ENGINEERING</span>
-    <span class="h1-stroke">CONSULTING</span>
-    <span class="h1-dim">GEC — BOGOTÁ 2026</span>
-  </h1>
-  <p class="hero-desc">
-    En <strong>GREEN Engineering Consulting (GEC)</strong> transformamos la infraestructura técnica de las organizaciones mediante ingeniería inteligente y <strong>transformación digital con BIM 3D</strong> — integrando modelado paramétrico, coordinación multidisciplinar y gemelos digitales para optimizar el ciclo de vida de cada proyecto. Garantizamos cumplimiento normativo ambiental y reducción drástica de costos energéticos.
-  </p>
-  <div class="hero-cta-row">
-    <a href="#contacto" class="btn-primary">Agendar Consultoría Técnica <span>→</span></a>
-    <a href="#proyectos" class="btn-outline">Ver Portafolio</a>
+
+  <!-- LEFT: text content -->
+  <div class="hero-left">
+    <div class="hero-eyebrow"><div class="hero-dot"></div>Ingeniería · Consultoría · Diseño · Bogotá CO</div>
+    <h1 class="hero-h1">
+      <span class="h1-solid scramble" data-text="GREEN">GREEN</span>
+      <span class="h1-solid">ENGINEERING</span>
+      <span class="h1-stroke">CONSULTING</span>
+    </h1>
+    <p class="hero-desc">
+      En <strong>GREEN Engineering Consulting (GEC)</strong> transformamos la infraestructura técnica de las organizaciones mediante ingeniería inteligente y <strong>transformación digital con BIM 3D</strong> — integrando modelado paramétrico, coordinación multidisciplinar y gemelos digitales para optimizar el ciclo de vida de cada proyecto.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#contacto" class="btn-primary">Agendar Consultoría Técnica <span>→</span></a>
+      <a href="#proyectos" class="btn-outline">Ver Portafolio</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="metric"><span class="metric-n">100%</span><span class="metric-l">Tasa de Efectividad</span></div>
+      <div class="metric"><span class="metric-n">30%+</span><span class="metric-l">Ahorro Energético</span></div>
+      <div class="metric"><span class="metric-n">40+</span><span class="metric-l">Proyectos Ejecutados</span></div>
+      <div class="metric"><span class="metric-n">BIM 3D</span><span class="metric-l">Transformación Digital</span></div>
+    </div>
   </div>
-  <div class="hero-metrics">
-    <div class="metric"><span class="metric-n">100%</span><span class="metric-l">Tasa de Efectividad</span></div>
-    <div class="metric"><span class="metric-n">30%+</span><span class="metric-l">Ahorro Energético</span></div>
-    <div class="metric"><span class="metric-n">40+</span><span class="metric-l">Proyectos Ejecutados</span></div>
-    <div class="metric"><span class="metric-n">BIM 3D</span><span class="metric-l">Transformación Digital</span></div>
+
+  <!-- RIGHT: animated engineering diagram -->
+  <div class="hero-right">
+    <div class="hero-diagram" id="heroDiagram">
+      <svg class="hero-diagram-svg" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring -->
+        <circle cx="210" cy="210" r="196" stroke="rgba(90,158,30,0.12)" stroke-width="1"/>
+        <!-- Dashed ring -->
+        <circle cx="210" cy="210" r="175" stroke="rgba(90,158,30,0.18)" stroke-width="1" stroke-dasharray="6 8"/>
+        <!-- Mid ring -->
+        <circle cx="210" cy="210" r="140" stroke="rgba(90,158,30,0.1)" stroke-width="1"/>
+        <!-- Inner ring -->
+        <circle cx="210" cy="210" r="100" stroke="rgba(90,158,30,0.16)" stroke-width="1" stroke-dasharray="3 6"/>
+        <!-- Cross hairs -->
+        <line x1="210" y1="14" x2="210" y2="406" stroke="rgba(90,158,30,0.07)" stroke-width="1"/>
+        <line x1="14" y1="210" x2="406" y2="210" stroke="rgba(90,158,30,0.07)" stroke-width="1"/>
+        <!-- Diagonal lines -->
+        <line x1="62" y1="62" x2="358" y2="358" stroke="rgba(90,158,30,0.05)" stroke-width="1"/>
+        <line x1="358" y1="62" x2="62" y2="358" stroke="rgba(90,158,30,0.05)" stroke-width="1"/>
+        <!-- Tick marks outer -->
+        <g stroke="rgba(90,158,30,0.3)" stroke-width="1.5">
+          <line x1="210" y1="14" x2="210" y2="26"/>
+          <line x1="210" y1="394" x2="210" y2="406"/>
+          <line x1="14" y1="210" x2="26" y2="210"/>
+          <line x1="394" y1="210" x2="406" y2="210"/>
+          <line x1="71.7" y1="71.7" x2="80.2" y2="80.2"/>
+          <line x1="348.3" y1="348.3" x2="339.8" y2="339.8"/>
+          <line x1="348.3" y1="71.7" x2="339.8" y2="80.2"/>
+          <line x1="71.7" y1="348.3" x2="80.2" y2="339.8"/>
+        </g>
+        <!-- Arc segment accent -->
+        <path d="M 210 70 A 140 140 0 0 1 350 210" stroke="rgba(90,158,30,0.35)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M 210 350 A 140 140 0 0 1 70 210" stroke="rgba(90,158,30,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Data points on outer ring -->
+        <circle cx="210" cy="35" r="4" fill="rgba(90,158,30,0.5)"/>
+        <circle cx="370" cy="118" r="3" fill="rgba(90,158,30,0.35)"/>
+        <circle cx="370" cy="302" r="3" fill="rgba(90,158,30,0.35)"/>
+        <circle cx="210" cy="385" r="4" fill="rgba(90,158,30,0.5)"/>
+        <circle cx="50" cy="302" r="3" fill="rgba(90,158,30,0.35)"/>
+        <circle cx="50" cy="118" r="3" fill="rgba(90,158,30,0.35)"/>
+      </svg>
+      <!-- Counter-rotating inner ring -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;animation:diagRotate 22s linear infinite reverse;" viewBox="0 0 420 420" fill="none">
+        <circle cx="210" cy="210" r="155" stroke="rgba(90,158,30,0.08)" stroke-width="1" stroke-dasharray="2 12"/>
+        <!-- Small arc -->
+        <path d="M 155 210 A 55 55 0 0 0 265 210" stroke="rgba(90,158,30,0.25)" stroke-width="1.5" fill="none"/>
+        <!-- Corner bracket TL -->
+        <path d="M 118 118 L 118 138 M 118 118 L 138 118" stroke="rgba(90,158,30,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Corner bracket BR -->
+        <path d="M 302 302 L 302 282 M 302 302 L 282 302" stroke="rgba(90,158,30,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Corner bracket TR -->
+        <path d="M 302 118 L 302 138 M 302 118 L 282 118" stroke="rgba(90,158,30,0.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Corner bracket BL -->
+        <path d="M 118 302 L 118 282 M 118 302 L 138 302" stroke="rgba(90,158,30,0.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="hero-diagram-inner">
+        <div class="hero-diagram-badge">GEC</div>
+        <div class="hero-diagram-sub">Consultoría · Diseño · Interventoría</div>
+        <div class="hero-diagram-sub" style="margin-top:.3rem">Commissioning · Data Science · BIM 3D</div>
+      </div>
+    </div>
   </div>
+
   <div class="hero-scroll"><div class="scroll-ln"></div><div class="scroll-txt">SCROLL</div></div>
 </section>
 
@@ -489,7 +928,7 @@ footer { position:relative; z-index:2; background:var(--bg2); padding:2.5rem 5vw
     </div>
     <p class="svc-intro-right">10 disciplinas de ingeniería integradas. Selecciona cualquier servicio para ver el alcance completo.</p>
   </div>
-  <div class="svc-accordion" id="svcAccordion"></div>
+  <div class="svc-grid" id="svcGrid"></div>
 </section>
 
 <!-- PROJECTS — GRID DE ICONOS -->
@@ -497,9 +936,9 @@ footer { position:relative; z-index:2; background:var(--bg2); padding:2.5rem 5vw
   <div class="proj-head sr">
     <div>
       <div class="eyebrow">Portafolio</div>
-      <h2 class="sec-title">Proyectos en que<br><em>Participamos</em></h2>
+      <h2 class="sec-title">Nuestra<br><em>Experiencia</em></h2>
     </div>
-    <p class="proj-head-right">Experiencia demostrada en 5 sectores. Selecciona un sector para ver el alcance de nuestro trabajo.</p>
+    <p class="proj-head-right">Experiencia demostrada en 5 sectores de la industria. Selecciona un sector para ver el alcance de nuestro trabajo.</p>
   </div>
   <div class="pcat-grid" id="pcatGrid"></div>
 </section>
@@ -660,90 +1099,263 @@ const CATEGORIES = [
   {num:'05',name:'Gubernamentales',count:'6+ proyectos',services:['Diseño Eléctrico MT/BT','PCI & Agente Limpio','Electrónico & Seguridad','HVAC Centros de Datos','Supervisión Técnica','Data & Dashboards KPI'],desc:'Sedes públicas, centros de reclusión, URI y edificios gubernamentales. Ingeniería de detalle bajo normativa INVIAS, acompañamiento en interventoría y dashboards de supervisión para entidades distritales.'}
 ];
 
-/* SERVICES ACCORDION */
+/* SERVICES CARD GRID */
 (function(){
-  const acc=document.getElementById('svcAccordion'); let openRow=null;
-  SVCS.forEach((s,i)=>{
-    const row=document.createElement('div'); row.className='svc-row'; row.id='svcRow'+i;
-    row.innerHTML='<div class="svc-row-head" onclick="toggleSvc('+i+')">'
-      +'<span class="svc-row-num">'+s.num+'</span>'
-      +'<span class="svc-row-name">'+s.name+'</span>'
-      +'<span class="svc-row-tag">'+s.tag+'</span>'
-      +'<span class="svc-row-toggle">+</span>'
-      +'</div><div class="svc-row-body"><div class="svc-row-body-inner">'
-      +'<ul class="svc-items-list">'+s.items.map(it=>'<li class="svc-item-li">'+it+'</li>').join('')+'</ul>'
-      +'</div></div>';
-    acc.appendChild(row);
+  const SVC_ICONS = [
+    // Diseño Eléctrico — bolt/lightning
+    '<svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    // Diseño Electrónico — chip
+    '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 1v2M15 1v2M9 21v2M15 21v2M1 9h2M1 15h2M21 9h2M21 15h2"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>',
+    // Iluminación — sun/light
+    '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>',
+    // Hidráulico — droplet
+    '<svg viewBox="0 0 24 24"><path d="M12 2C6 9 4 13.5 4 16a8 8 0 0016 0c0-2.5-2-7-8-14z"/></svg>',
+    // HVAC — wind/fan
+    '<svg viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2 2 0 1019 12H2"/></svg>',
+    // Trámites ESP — file-check
+    '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>',
+    // Supervisión BIM — layers
+    '<svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+    // Energías Renovables — sun+leaf
+    '<svg viewBox="0 0 24 24"><path d="M12 22V12"/><path d="M12 12C12 7 15 3.5 20 2c0 5-2 9-8 10z"/><path d="M12 12C12 7 9 3.5 4 2c0 5 2 9 8 10z"/><circle cx="12" cy="5" r="2"/></svg>',
+    // Calidad de Energía — activity
+    '<svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+    // Data & Dashboards — bar chart
+    '<svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>'
+  ];
+
+  const grid = document.getElementById('svcGrid');
+  if(!grid) return;
+  let openCard = null, openPanel = null;
+
+  SVCS.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'svc-card sr';
+    card.style.transitionDelay = (i * 0.04) + 's';
+    card.innerHTML =
+      '<span class="svc-card-num">'+s.num+'</span>'
+      +'<div class="svc-card-icon">'+SVC_ICONS[i]+'</div>'
+      +'<div class="svc-card-name">'+s.name+'</div>'
+      +'<div class="svc-card-tag">'+s.tag+'</div>'
+      +'<span class="svc-card-toggle">+</span>';
+
+    card.addEventListener('click', () => {
+      const isOpen = card.classList.contains('open');
+      // close any open
+      if(openCard) openCard.classList.remove('open');
+      if(openPanel){ openPanel.classList.remove('open'); setTimeout(()=>{ if(openPanel&&openPanel.parentNode) openPanel.parentNode.removeChild(openPanel); openPanel=null; }, 520); }
+      openCard = null;
+
+      if(!isOpen){
+        card.classList.add('open');
+        openCard = card;
+
+        const outer = document.createElement('div');
+        outer.className = 'svc-detail-panel';
+        outer.innerHTML = '<div class="svc-detail-inner">'
+          +'<div class="svc-detail-head">'
+          +'<span class="svc-detail-name-big">'+s.name+'</span>'
+          +'<span class="svc-detail-tag-pill">'+s.tag+'</span>'
+          +'</div>'
+          +'<ul class="svc-items-list">'+s.items.map(it=>'<li class="svc-item-li">'+it+'</li>').join('')+'</ul>'
+          +'</div>';
+        openPanel = outer;
+
+        card.after(outer);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>outer.classList.add('open')));
+        setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+      }
+    });
+
+    grid.appendChild(card);
   });
-  window.toggleSvc=function(i){
-    const row=document.getElementById('svcRow'+i);
-    if(openRow&&openRow!==row) openRow.classList.remove('open');
-    row.classList.toggle('open');
-    openRow=row.classList.contains('open')?row:null;
-    if(row.classList.contains('open')) setTimeout(()=>row.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
-  };
 })();
 
-/* PROJECTS ICON GRID */
+/* PROJECTS PENTAGON PORTAL — side-by-side layout */
 (function(){
-  const ICONS = [
-    // Hospitalarios — cruz médica
+  const CAT_ICONS = [
     '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',
-    // Comerciales — tienda
     '<svg viewBox="0 0 24 24"><path d="M3 9l1-6h16l1 6"/><path d="M3 9a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0"/><path d="M5 21V9M19 9v12"/><rect x="9" y="14" width="6" height="7"/></svg>',
-    // Industriales — engranaje
     '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>',
-    // Institucionales — edificio columnas
     '<svg viewBox="0 0 24 24"><path d="M3 21h18M3 10h18M12 3L3 10h18L12 3z"/><line x1="7" y1="10" x2="7" y2="21"/><line x1="12" y1="10" x2="12" y2="21"/><line x1="17" y1="10" x2="17" y2="21"/></svg>',
-    // Gubernamentales — escudo
     '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>'
   ];
 
   const grid = document.getElementById('pcatGrid');
   if(!grid) return;
 
-  let openIdx = null;
-  let detailEl = null;
+  // Build stage wrapper
+  const stage = document.createElement('div');
+  stage.className = 'pcat-stage sr';
+
+  // ── LEFT COL: Pentagon ──
+  const leftCol = document.createElement('div');
+  leftCol.className = 'pcat-pentagon-col';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'pcat-pentagon-wrap';
+
+  // Pentagon geometry
+  const N = 5, SIZE = 480, CX = SIZE/2, CY = SIZE/2;
+  const R_ICON  = 178; // icon button radius
+  const R_PENT  = 148; // pentagon edge radius
+  const R_LABEL = 228; // label radius
+
+  function vert(i, r){
+    const a = (Math.PI*2/N)*i - Math.PI/2;
+    return { x: CX + r*Math.cos(a), y: CY + r*Math.sin(a) };
+  }
+
+  const pentVerts  = Array.from({length:N}, (_,i) => vert(i, R_PENT));
+  const iconPos    = Array.from({length:N}, (_,i) => vert(i, R_ICON));
+  const labelPos   = Array.from({length:N}, (_,i) => vert(i, R_LABEL));
+  const pentPath   = pentVerts.map((v,i)=>(i?'L':'M')+v.x.toFixed(1)+','+v.y.toFixed(1)).join(' ')+' Z';
+
+  // Inner rings
+  const innerVerts = Array.from({length:N}, (_,i) => vert(i, R_PENT*.52));
+  const innerPath  = innerVerts.map((v,i)=>(i?'L':'M')+v.x.toFixed(1)+','+v.y.toFixed(1)).join(' ')+' Z';
+
+  // SVG
+  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('class','pcat-pentagon-svg');
+  svg.setAttribute('viewBox',`0 0 ${SIZE} ${SIZE}`);
+  svg.setAttribute('fill','none');
+
+  // Outer pentagon
+  const pEl = document.createElementNS('http://www.w3.org/2000/svg','path');
+  pEl.setAttribute('d', pentPath);
+  pEl.setAttribute('fill','rgba(90,158,30,0.05)');
+  pEl.setAttribute('stroke','rgba(90,158,30,0.2)');
+  pEl.setAttribute('stroke-width','1.5');
+  svg.appendChild(pEl);
+
+  // Inner pentagon
+  const iEl = document.createElementNS('http://www.w3.org/2000/svg','path');
+  iEl.setAttribute('d', innerPath);
+  iEl.setAttribute('fill','rgba(90,158,30,0.03)');
+  iEl.setAttribute('stroke','rgba(90,158,30,0.12)');
+  iEl.setAttribute('stroke-width','1');
+  svg.appendChild(iEl);
+
+  // Spokes (dashed, dim)
+  const spokeGroup = document.createElementNS('http://www.w3.org/2000/svg','g');
+  iconPos.forEach(pos => {
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1',CX); l.setAttribute('y1',CY);
+    l.setAttribute('x2',pos.x.toFixed(1)); l.setAttribute('y2',pos.y.toFixed(1));
+    l.setAttribute('stroke','rgba(90,158,30,0.1)');
+    l.setAttribute('stroke-width','1');
+    l.setAttribute('stroke-dasharray','5 5');
+    spokeGroup.appendChild(l);
+  });
+  svg.appendChild(spokeGroup);
+
+  // Active spoke (highlighted, updated on click)
+  const activeSpoke = document.createElementNS('http://www.w3.org/2000/svg','line');
+  activeSpoke.setAttribute('x1',CX); activeSpoke.setAttribute('y1',CY);
+  activeSpoke.setAttribute('x2',CX); activeSpoke.setAttribute('y2',CY);
+  activeSpoke.setAttribute('stroke','rgba(90,158,30,0)');
+  activeSpoke.setAttribute('stroke-width','2.5');
+  activeSpoke.style.transition = 'all .4s ease';
+  svg.appendChild(activeSpoke);
+
+  // Center circle
+  const cc = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  cc.setAttribute('cx',CX); cc.setAttribute('cy',CY); cc.setAttribute('r','26');
+  cc.setAttribute('fill','rgba(90,158,30,0.07)');
+  cc.setAttribute('stroke','rgba(90,158,30,0.28)'); cc.setAttribute('stroke-width','1.5');
+  svg.appendChild(cc);
+
+  wrap.appendChild(svg);
+
+  // Center label — with rotating rings
+  const cl = document.createElement('div');
+  cl.className = 'pcat-center-label';
+  cl.innerHTML = '<span class="pcat-center-gec">GEC</span><span class="pcat-center-sub">Experiencia</span>';
+  wrap.appendChild(cl);
+
+  // Rotating accent rings
+  const ring1 = document.createElement('div'); ring1.className = 'pcat-center-ring';
+  const ring2 = document.createElement('div'); ring2.className = 'pcat-center-ring2';
+  wrap.appendChild(ring1);
+  wrap.appendChild(ring2);
+
+  // ── RIGHT COL: Info panel ──
+  const rightCol = document.createElement('div');
+  rightCol.className = 'pcat-info-col';
+
+  const placeholder = document.createElement('div');
+  placeholder.className = 'pcat-placeholder';
+  placeholder.innerHTML =
+    '<div class="pcat-placeholder-title">SELECCIONA<br>UN SECTOR</div>'
+    +'<div class="pcat-placeholder-hint">Haz click en un nodo</div>'
+    +'<div class="pcat-placeholder-arrow"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>';
+  rightCol.appendChild(placeholder);
+
+  // Detail panels (hidden, swapped in on click)
+  const panels = CATEGORIES.map(cat => {
+    const p = document.createElement('div');
+    p.className = 'pcat-detail-panel';
+    p.innerHTML =
+      '<span class="pcat-detail-num">'+cat.num+' / 05 — Sectores</span>'
+      +'<div class="pcat-detail-name">'+cat.name.split(' ').map((w,j)=>j===cat.name.split(' ').length-1?'<em>'+w+'</em>':w).join(' ')+'</div>'
+      +'<div class="pcat-detail-tags">'+cat.services.map(s=>'<span class="pcat-detail-tag">'+s+'</span>').join('')+'</div>'
+      +'<p class="pcat-detail-desc">'+cat.desc+'</p>'
+      +'<div class="pcat-detail-count-big">'+cat.count+'</div>';
+    rightCol.appendChild(p);
+    return p;
+  });
+
+  // Face buttons
+  let openFace = null, openPanel = null;
 
   CATEGORIES.forEach((cat, i) => {
-    // card
-    const card = document.createElement('div');
-    card.className = 'pcat-card sr';
-    card.style.transitionDelay = (i * 0.07) + 's';
-    card.innerHTML =
-      '<div class="pcat-icon">'+ICONS[i]+'</div>'
-      +'<div class="pcat-num">'+cat.num+'</div>'
-      +'<div class="pcat-name">'+cat.name+'</div>'
-      +'<div class="pcat-count">'+cat.count+'</div>';
+    const pos = iconPos[i];
+    const lpos = labelPos[i];
 
-    card.addEventListener('click', () => {
-      const isOpen = card.classList.contains('open');
+    // icon face
+    const face = document.createElement('div');
+    face.className = 'pcat-face';
+    face.style.cssText = `left:${(pos.x/SIZE*100).toFixed(2)}%;top:${(pos.y/SIZE*100).toFixed(2)}%;transform:translate(-50%,-50%);`;
+    face.innerHTML = '<div class="pcat-face-btn">'+CAT_ICONS[i]+'</div>';
 
-      // close any open
-      grid.querySelectorAll('.pcat-card.open').forEach(c => c.classList.remove('open'));
-      if(detailEl){ detailEl.classList.remove('open'); setTimeout(()=>{ if(detailEl&&detailEl.parentNode) detailEl.parentNode.removeChild(detailEl); detailEl=null; }, 500); }
-      openIdx = null;
+    // label
+    const lbl = document.createElement('div');
+    lbl.className = 'pcat-face-label';
+    lbl.style.cssText = `left:${(lpos.x/SIZE*100).toFixed(2)}%;top:${(lpos.y/SIZE*100).toFixed(2)}%;transform:translate(-50%,-50%);`;
+    lbl.innerHTML = '<span class="pcat-face-label-name">'+cat.name+'</span><span class="pcat-face-label-count">'+cat.count+'</span>';
+
+    face.addEventListener('click', () => {
+      const isOpen = face.classList.contains('open');
+
+      if(openFace){ openFace.classList.remove('open'); }
+      if(openPanel){ openPanel.classList.remove('active'); }
+      activeSpoke.setAttribute('stroke','rgba(90,158,30,0)');
+      placeholder.classList.remove('hidden');
+      openFace = null; openPanel = null;
 
       if(!isOpen){
-        card.classList.add('open');
-        openIdx = i;
+        face.classList.add('open');
+        openFace = face;
+        openPanel = panels[i];
+        panels[i].classList.add('active');
+        placeholder.classList.add('hidden');
 
-        // create detail panel after this row
-        const detail = document.createElement('div');
-        detail.className = 'pcat-detail';
-        detail.innerHTML =
-          '<div class="pcat-detail-tags">'+cat.services.map(s=>'<span class="pcat-detail-tag">'+s+'</span>').join('')+'</div>'
-          +'<p class="pcat-detail-desc">'+cat.desc+'</p>';
-        detailEl = detail;
-
-        // insert after card
-        card.after(detail);
-        requestAnimationFrame(()=>requestAnimationFrame(()=>detail.classList.add('open')));
+        // light up spoke
+        activeSpoke.setAttribute('x2', pos.x.toFixed(1));
+        activeSpoke.setAttribute('y2', pos.y.toFixed(1));
+        activeSpoke.setAttribute('stroke', 'rgba(90,158,30,0.55)');
       }
     });
 
-    grid.appendChild(card);
+    wrap.appendChild(face);
+    wrap.appendChild(lbl);
   });
+
+  leftCol.appendChild(wrap);
+  stage.appendChild(leftCol);
+  stage.appendChild(rightCol);
+  grid.appendChild(stage);
 })();
 
 /* CONSTELLATION ANIMATION — hero */
